@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -7,43 +8,128 @@
     <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
     <title>Student Registration Form</title>
 </head>
-<body class="bg-black mt-55
- m-0 p-0 flex items-center justify-center">
-    <form class="border-2 p-10 rounded-md bg-gray-400 backdrop-blur-3xl">
-        <table class="w-full border-separate border-spacing-y-5">
-            <tr>
-              <td class="p-2">Name</td><td><input type="text" placeholder="Enter Your Name" class="border border-solid p-1 rounded-xl "></td>
-            </tr>
-            <tr>
-                <td class="p-2">Age</td><td><input type="text" placeholder="Enter Your Age" class="border border-solid p-1 rounded-xl"></td>
-            </tr>
-            <tr>
-                <td class="p-2">Gender</td><td><input type="radio" name="gender" value="Male" id="male">Male <input type="radio" name="gender" value="Female" id="female" class="p-2">Female
-    <input type="radio" name="gender" value="Other" id="other" class="p-2">Other</td>
-            </tr>
-            <tr>
-                <td class="p-2">Course</td><td>
-                    <select class="border border-solid p-1 rounded-xl">
-                    <option>JavaScript</option>
-                    <option>Java</option>
-                    <option>Python</option>
-                    <option>C++</option>
-                    <option>Deluge</option>
-                    <option>Ruby</option>
-                </select></td>
-            </tr>
-            <tr>
-                <td class="p-2">Email</td><td><input type="text" placeholder="Enter Your Email" class="border border-solid p-1 rounded-xl"></td>
-            </tr>
-            <tr>
-            <td></td>   <td><button class="border border-solid pl-5 pr-5 p-1 rounded-xl bg- bg-white hover:bg-blue-500 hover:text-white">Save</button></td> 
-            </tr>
-        </table>
-    </form>
-    
-</body>
-</html>
 
-<script>
-    
-</script>
+<body class="bg-gradient-to-br from-gray-900 to-black text-white font-sans">
+
+    <!-- Form Section -->
+    <div class="mt-16 flex items-center justify-center">
+        <form id="studentForm"
+            class="border border-red-700 shadow-2xl p-10 rounded-2xl bg-black text-red-400 w-[90%] max-w-2xl">
+            <h2 class="text-3xl font-bold text-center text-white mb-6">📋 Student Registration</h2>
+            <table class="w-full border-separate border-spacing-y-5 text-lg">
+                <tr>
+                    <td class="p-2 font-semibold">Name</td>
+                    <td><input type="text" id="name" placeholder="Enter Your Name"
+                            class="border border-red-400 bg-gray-800 text-white p-2 rounded-xl w-full focus:outline-none focus:ring-2 focus:ring-red-500"/>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="p-2 font-semibold">Age</td>
+                    <td><input type="number" id="age" placeholder="Enter Your Age"
+                            class="border border-red-400 bg-gray-800 text-white p-2 rounded-xl w-full focus:outline-none focus:ring-2 focus:ring-red-500"/>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="p-2 font-semibold">Gender</td>
+                    <td class="space-x-4">
+                        <label><input type="radio" name="gender" value="Male" /> Male</label>
+                        <label><input type="radio" name="gender" value="Female" /> Female</label>
+                        <label><input type="radio" name="gender" value="Other" /> Other</label>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="p-2 font-semibold">Course</td>
+                    <td>
+                        <select id="course"
+                            class="border border-red-400 bg-gray-800 text-white p-2 rounded-xl w-full focus:outline-none focus:ring-2 focus:ring-red-500">
+                            <option>JavaScript</option>
+                            <option>Java</option>
+                            <option>Python</option>
+                            <option>C++</option>
+                            <option>Deluge</option>
+                            <option>Ruby</option>
+                        </select>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="p-2 font-semibold">Email</td>
+                    <td><input type="text" id="email" placeholder="Enter Your Email"
+                            class="border border-red-400 bg-gray-800 text-white p-2 rounded-xl w-full focus:outline-none focus:ring-2 focus:ring-red-500" />
+                    </td>
+                </tr>
+                <tr>
+                    <td></td>
+                    <td>
+                        <button type="submit"
+                            class="mt-4 w-full bg-red-600 text-white font-semibold py-2 rounded-xl hover:bg-red-800 transition duration-300 ease-in-out">
+                            🚀 Save
+                        </button>
+                    </td>
+                </tr>
+            </table>
+        </form>
+    </div>
+
+    <!-- Table Display Section -->
+    <div class="mt-14 flex justify-center hidden" id="tableContainer">
+        <div class="w-[95%] max-w-6xl">
+            <table
+                class="w-full border-2 border-red-700 rounded-lg bg-black text-red-400 text-center shadow-lg overflow-hidden"
+                id="dataTable">
+                <thead class="bg-red-700 text-white text-lg">
+                    <tr>
+                        <th class="p-3">Name</th>
+                        <th class="p-3">Age</th>
+                        <th class="p-3">Gender</th>
+                        <th class="p-3">Course</th>
+                        <th class="p-3">Email</th>
+                        <th class="p-3">Action</th>
+                    </tr>
+                </thead>
+                <tbody id="tableBody" class="text-white">
+                    <!-- New rows will be added here -->
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+    <script>
+        const form = document.getElementById("studentForm")
+        const tableBody = document.getElementById("tableBody")
+
+        form.addEventListener("submit", function (event) {
+            event.preventDefault()  //This function stops from reloading pages if save button is clicked accidently
+
+            const name = document.getElementById("name").value
+            const age = document.getElementById("age").value
+            const email = document.getElementById("email").value
+            const course = document.getElementById("course").value
+            const genderInput = document.querySelector('input[name="gender"]:checked')
+            const gender = genderInput ? genderInput.value : ""
+
+
+            if (!name || !age || !email || !gender || !course) {
+                alert("Please fill all the fields")
+                return
+            }
+            tableContainer.classList.remove("hidden")
+
+            const row = document.createElement("tr")
+            row.innerHTML = `
+        <td class="p-2">${name}</td>
+        <td class="p-2">${age}</td>
+        <td class="p-2">${gender}</td>
+        <td class="p-2">${course}</td>
+        <td class="p-2">${email}</td>
+        <td class="p-2"><button class="text-red-600" onclick="closest("tr").remove()">Delete</button></td>
+      `;
+            tableBody.append(row)
+
+            form.reset()  // Resets the input values, clears the inputs values in the form
+
+        })
+    </script>
+
+</body>
+
+</html>
