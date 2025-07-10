@@ -20,13 +20,13 @@
                 <tr>
                     <td class="p-2 font-semibold">Name</td>
                     <td><input type="text" id="name" placeholder="Enter Your Name"
-                            class="border border-red-400 bg-gray-800 text-white p-2 rounded-xl w-full focus:outline-none focus:ring-2 focus:ring-red-500"/>
+                            class="border border-red-400 bg-gray-800 text-white p-2 rounded-xl w-full focus:outline-none focus:ring-2 focus:ring-red-500" />
                     </td>
                 </tr>
                 <tr>
                     <td class="p-2 font-semibold">Age</td>
                     <td><input type="number" id="age" placeholder="Enter Your Age"
-                            class="border border-red-400 bg-gray-800 text-white p-2 rounded-xl w-full focus:outline-none focus:ring-2 focus:ring-red-500"/>
+                            class="border border-red-400 bg-gray-800 text-white p-2 rounded-xl w-full focus:outline-none focus:ring-2 focus:ring-red-500" />
                     </td>
                 </tr>
                 <tr>
@@ -76,7 +76,7 @@
             <table
                 class="w-full border-2 border-red-700 rounded-lg bg-black text-red-400 text-center shadow-lg overflow-hidden"
                 id="dataTable">
-                <thead class="bg-red-700 text-white text-lg">
+                <thead class="bg-red-700 text-white text-lg" id="tableHead">
                     <tr>
                         <th class="p-3">Name</th>
                         <th class="p-3">Age</th>
@@ -121,13 +121,24 @@
         <td class="p-2">${gender}</td>
         <td class="p-2">${course}</td>
         <td class="p-2">${email}</td>
-        <td class="p-2"><button class="text-red-600" onclick="closest("tr").remove()">Delete</button></td>
-      `;
+         <td class="p-2">
+       <button class="text-red-600 cursor-pointer hover:underline" onclick="deleteRow(this)">Delete</button></td>
+      `
             tableBody.append(row)
 
             form.reset()  // Resets the input values, clears the inputs values in the form
 
         })
+
+        function deleteRow(button) {
+            const row = button.closest("tr")
+            row.remove()
+
+            const remainingRows = document.querySelectorAll("#tableBody tr").length
+            if (remainingRows === 0) {
+                tableContainer.classList.add("hidden")
+            }
+        }
     </script>
 
 </body>
